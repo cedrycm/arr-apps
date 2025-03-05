@@ -14,14 +14,20 @@ services:
     volumes:
       - /arr/prowlarr/config:/config
       - /arr/rowlarr/backup:/data/backup
-      - ${ARRPATH}downloads:/downloads
+      - ${MEDIA_PATH}downloads:/downloads
     ports:
       - 9696:9696
     restart: unless-stopped
     env_file:
       - '.env'
   
-# RECYCLARR
+# ██████╗ ███████╗ ██████╗██╗   ██╗ ██████╗██╗      █████╗ ██████╗ ██████╗ 
+# ██╔══██╗██╔════╝██╔════╝╚██╗ ██╔╝██╔════╝██║     ██╔══██╗██╔══██╗██╔══██╗
+# ██████╔╝█████╗  ██║      ╚████╔╝ ██║     ██║     ███████║██████╔╝██████╔╝
+# ██╔══██╗██╔══╝  ██║       ╚██╔╝  ██║     ██║     ██╔══██║██╔══██╗██╔══██╗
+# ██║  ██║███████╗╚██████╗   ██║   ╚██████╗███████╗██║  ██║██║  ██║██║  ██║
+# ╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═╝    ╚═════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝
+  
   recyclarr:
     image: ghcr.io/recyclarr/recyclarr
     container_name: recyclarr
@@ -46,8 +52,8 @@ services:
     volumes:
       - /arr/sonarr/config:/config
       - /arr/sonarr/backup:/data/backup
-      - ${ARRPATH}/tv:/data/tv
-      - ${ARRPATH}/downloads:/downloads
+      - ${MEDIA_PATH}/tv:/data/tv
+      - ${MEDIA_PATH}/downloads:/downloads
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -68,8 +74,8 @@ services:
     volumes:
       - /arr/radarr/config:/config
       - /arr/radarr/backup:/data/backup
-      - ${ARRPATH}movies:/data/movies
-      - ${ARRPATH}downloads:/downloads
+      - ${MEDIA_PATH}movies:/data/movies
+      - ${MEDIA_PATH}downloads:/downloads
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -89,8 +95,8 @@ services:
     hostname: lidarr
     volumes:
       - /arr/lidarr/config:/config
-      - ${ARRPATH}music:/data/musicfolder
-      - ${ARRPATH}downloads:/downloads
+      - ${MEDIA_PATH}music:/data/musicfolder
+      - ${MEDIA_PATH}downloads:/downloads
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -110,8 +116,8 @@ services:
     hostname: readarr
     volumes:
       - /arr/readarr/config:/config
-      - ${ARRPATH}eBooks:/data/books
-      - ${ARRPATH}downloads:/downloads
+      - ${MEDIA_PATH}eBooks:/data/books
+      - ${MEDIA_PATH}downloads:/downloads
     ports:
       - 8787:8787
     restart: unless-stopped
@@ -162,6 +168,13 @@ services:
   #     - '.env'
   #   restart: unless-stopped
 
+# ███╗   ██╗███████╗██████╗  ██████╗ ███████╗████████╗
+# ████╗  ██║╚══███╔╝██╔══██╗██╔════╝ ██╔════╝╚══██╔══╝
+# ██╔██╗ ██║  ███╔╝ ██████╔╝██║  ███╗█████╗     ██║   
+# ██║╚██╗██║ ███╔╝  ██╔══██╗██║   ██║██╔══╝     ██║   
+# ██║ ╚████║███████╗██████╔╝╚██████╔╝███████╗   ██║   
+# ╚═╝  ╚═══╝╚══════╝╚═════╝  ╚═════╝ ╚══════╝   ╚═╝   
+                                                
   nzbget:
     image: lscr.io/linuxserver/nzbget:latest
     container_name: nzbget
@@ -192,8 +205,8 @@ services:
   #   labels:
   #     - "com.centurylinklabs.watchtower.enable=false"
   #   volumes:
-  #     - ${ARRPATH}qbittorrent/config:/config
-  #     - ${ARRPATH}Downloads:/downloads
+  #     - /qbittorrent/config:/config
+  #     - ${MEDIA_PATH}downloads:/downloads
   #   ports:
   #     - 8080:8080
   #     - 6881:6881
