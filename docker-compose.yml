@@ -1,3 +1,7 @@
+networks:
+  arr_network:
+    driver: bridge
+    
 services:       
 
 # ██████╗ ██████╗  ██████╗ ██╗    ██╗██╗      █████╗ ██████╗ ██████╗ 
