@@ -19,6 +19,8 @@ services:
       - /arr/prowlarr/config:/config
       - /arr/rowlarr/backup:/data/backup
       - ${MEDIA_PATH}downloads:/downloads
+    networks:
+      - arr_network
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -38,6 +40,8 @@ services:
     hostname: recyclarr
     volumes:
       - /arr/recyclarr/config:/config
+    networks:
+      - arr_network
     restart: unless-stopped
     env_file:
       - '.env'
@@ -59,6 +63,8 @@ services:
       - ${MEDIA_PATH}/tv:/data/tv
       - ${MEDIA_PATH}/anime/tv:/data/anime/tv
       - ${MEDIA_PATH}/downloads:/downloads
+    networks:
+      - arr_network
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -82,6 +88,8 @@ services:
       - ${MEDIA_PATH}movies:/data/movies
       - ${MEDIA_PATH}anime/movies:/data/anime/movies
       - ${MEDIA_PATH}downloads:/downloads
+    networks:
+      - arr_network
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -103,6 +111,8 @@ services:
       - /arr/lidarr/config:/config
       - ${MEDIA_PATH}music:/data/musicfolder
       - ${MEDIA_PATH}downloads:/downloads
+    networks:
+      - arr_network
     ports:
       - 8686:8686
     restart: unless-stopped
@@ -124,6 +134,8 @@ services:
       - /arr/readarr/config:/config
       - ${MEDIA_PATH}eBooks:/data/books
       - ${MEDIA_PATH}downloads:/downloads
+    networks:
+      - arr_network
     ports:
       - 8787:8787
     restart: unless-stopped
@@ -145,6 +157,8 @@ services:
       - /arr/homarr/configs:/app/data/configs
       - /arr/homarr/icons:/app/public/icons
       - /arr/homarr/data:/data
+    networks:
+      - arr_network
     ports:
       - '7575:7575'
     env_file:
@@ -193,11 +207,11 @@ services:
       - ${MEDIA_PATH}/tv:/data/tv
       - ${MEDIA_PATH}/anime/tv:/data/anime/tv
       - ${MEDIA_PATH}downloads:/downloads #optional
+    networks:
+      - arr_network
     environment:
       - NZBGET_USER=nzbget #optional
       - NZBGET_PASS=tegbzn6789 #optional
-    
-    
     restart: unless-stopped
           
 #  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
