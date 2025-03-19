@@ -1,7 +1,8 @@
+---
 networks:
-  arr_network:
+  arr_apps:
     driver: bridge
-    
+
 services:       
 
 # ██████╗ ██████╗  ██████╗ ██╗    ██╗██╗      █████╗ ██████╗ ██████╗ 
@@ -10,17 +11,17 @@ services:
 # ██╔═══╝ ██╔══██╗██║   ██║██║███╗██║██║     ██╔══██║██╔══██╗██╔══██╗
 # ██║     ██║  ██║╚██████╔╝╚███╔███╔╝███████╗██║  ██║██║  ██║██║  ██║
 # ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═
-                              
+
   prowlarr:
     image: linuxserver/prowlarr:latest
     container_name: prowlarr
     hostname: prowlarr
+    networks:
+      - arr_apps
     volumes:
       - /arr/prowlarr/config:/config
       - /arr/rowlarr/backup:/data/backup
       - ${MEDIA_PATH}downloads:/downloads
-    networks:
-      - arr_network
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -198,6 +199,8 @@ services:
   nzbget:
     image: lscr.io/linuxserver/nzbget:latest
     container_name: nzbget
+    networks:
+      - arr_apps
     ports:
       - 6789:6789
     volumes:
@@ -207,12 +210,12 @@ services:
       - ${MEDIA_PATH}/tv:/data/tv
       - ${MEDIA_PATH}/anime/tv:/data/anime/tv
       - ${MEDIA_PATH}downloads:/downloads #optional
-    networks:
-      - arr_network
     environment:
       - NZBGET_USER=nzbget #optional
       - NZBGET_PASS=tegbzn6789 #optional
     restart: unless-stopped
+    env_file:
+      - '.env'
           
 #  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
 # ██╔═══██╗██╔══██╗██║╚══██╔══╝╚══██╔══╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝
