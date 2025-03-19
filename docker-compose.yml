@@ -210,13 +210,32 @@ services:
       - ${MEDIA_PATH}/tv:/data/tv
       - ${MEDIA_PATH}/anime/tv:/data/anime/tv
       - ${MEDIA_PATH}downloads:/downloads #optional
+    depends_on:
+      - tailscale-arr
     environment:
       - NZBGET_USER=nzbget #optional
       - NZBGET_PASS=tegbzn6789 #optional
     restart: unless-stopped
     env_file:
       - '.env'
-          
+      
+  tailscale-arr:
+    image: tailscale/tailscale:latest
+    hostname: tailscale-arr
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_EXTRA_ARGS=--advertise-tags=tag:container
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    volumes:
+      - /arr/tailscale/state:/var/lib/tailscale
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+    restart: unless-stopped
+    env_file:
+      - '.env'
 #  ██████╗ ██████╗ ██╗████████╗████████╗ ██████╗ ██████╗ ██████╗ ███████╗███╗   ██╗████████╗
 # ██╔═══██╗██╔══██╗██║╚══██╔══╝╚══██╔══╝██╔═══██╗██╔══██╗██╔══██╗██╔════╝████╗  ██║╚══██╔══╝
 # ██║   ██║██████╔╝██║   ██║      ██║   ██║   ██║██████╔╝██████╔╝█████╗  ██╔██╗ ██║   ██║   
